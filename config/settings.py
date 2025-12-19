@@ -1,2 +1,1 @@
-# -*- coding: utf-8 -*-
-
+DATABASE_PATH = "../data/trumpet_practice.db"
