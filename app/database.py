@@ -32,6 +32,7 @@ class Database:
            CREATE TABLE IF NOT EXISTS goals (
              id INTEGER PRIMARY KEY AUTOINCREMENT,
              description TEXT NOT NULL,
+             target TEXT NOT NULL,
              completed BOOLEAN NOT NULL
            )
       ''')
