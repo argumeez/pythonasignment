@@ -21,7 +21,7 @@ class Database:
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS practice_sessions (
               id integer PRIMARY KEY AUTOINCREMENT,
-              data TEXT NOT NULL,
+              date TEXT NOT NULL,
               duration INTEGER NOT NULL,
               warmup INTEGER,
               exercises TEXT

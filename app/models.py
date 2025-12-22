@@ -1,7 +1,7 @@
 class PracticeSessions: 
-    def __init__(self, id, data, duration, warmup, exercises):
+    def __init__(self, id, date, duration, warmup, exercises):
         self.id = id
-        self.data = data
+        self.date = date
         self.duration = duration
         self.warmpup = warmup
         self.exercises = exercises
