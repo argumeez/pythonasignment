@@ -6,12 +6,16 @@ from config import settings
 class Database:
     def __init__(self):
         os.makedirs(os.path.dirname(settings.DATABASE_PATH), exist_ok=True)
-        self.connection = sqlite3.connect(settings.DATABASE_PATH)
-        self.cursor = self.connection.cursor()
-        self.create_tables()
+        self._create_tables()
 
-    def create_tables(self):
-        self.cursor.execute("""
+    def _connect(self):
+        return sqlite3.connect(settings.DATABASE_PATH)
+
+    def _create_tables(self):
+        conn = self._connect()
+        cursor = conn.cursor()
+
+        cursor.execute("""
             CREATE TABLE IF NOT EXISTS practice_sessions (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 date TEXT NOT NULL,
@@ -21,7 +25,7 @@ class Database:
             )
         """)
 
-        self.cursor.execute("""
+        cursor.execute("""
             CREATE TABLE IF NOT EXISTS goals (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 description TEXT NOT NULL,
@@ -29,15 +33,21 @@ class Database:
                 completed INTEGER NOT NULL
             )
         """)
-        self.connection.commit()
+
+        conn.commit()
+        conn.close()
 
     def execute_query(self, query, params=()):
-        self.cursor.execute(query, params)
-        self.connection.commit()
-        self.connection.close()
+        conn = self._connect()
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        conn.commit()
+        conn.close()
 
     def fetch_all(self, query, params=()):
-        self.cursor.execute(query, params)
-        rows = self.cursor.fetchall()
-        self.connection.close()
+        conn = self._connect()
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        rows = cursor.fetchall()
+        conn.close()
         return rows
