@@ -30,8 +30,8 @@ def generate_excel_report():
     goals_df = pd.DataFrame(goals, columns=["id", "description", "target", "completed"])
     
     with pd.ExcelWriter('practice_reports.xlsx') as writer:
-        sessions_df.to_excel(writer, sheet_name="Practice Sessions")
-        goals_df.to_excel(writer, sheet_name="Goals")
+        sessions_df.to_excel(writer, sheet_name="Practice Sessions", index=False)
+        goals_df.to_excel(writer, sheet_name="Goals", index=False)
         
         
     print("Excel report generated.")
