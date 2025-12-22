@@ -31,14 +31,14 @@ def list_goals():
 
 
 def main():
-    parser = argparse.ArgumentParser(desciption="Trumpet Practice Tracker")
+    parser = argparse.ArgumentParser(description="Trumpet Practice Tracker")
     parser.add_argument('--add-practice', nargs=4, metavar=('date', 'duration', 'warmup', 'exercises'),
                         help="Add a new practice session")
     parser.add_argument('--add-goal', nargs=3, metavar=('description', 'target', 'completed'),
                         help="Add a goal")
     parser.add_argument('--list-practice', action='store_true', help="List all practice sessions")
     parser.add_argument('--list-goals', action='store_true', help="List all goals")
-    parser.add_arguemtn('--generate-report-csv', action='store_true', help="Generate a CSV report")
+    parser.add_argument('--generate-report-csv', action='store_true', help="Generate a CSV report")
     parser.add_argument('--generate-report-excel', action='store_true', help="Generate an Excel report")
     
     args = parser.parse_args()
