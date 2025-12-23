@@ -18,6 +18,20 @@ def add_goal(description, target, completed):
     )
     print(f"Goal '{description}' added")
     
+def remove_practice(session_id):
+    db = Database()
+    db.execute_query("DELETE FROM practice_sessions WHERE ID = ?",
+                     (int(session_id),)
+    )
+    print(f"Practice session {session_id} removed.")
+    
+def remove_goal(goal_id):
+    db = Database()
+    db.execute_query("DELETE FROM goals WHERE ID = ?",
+                     (int(goal_id),)
+    )
+    print(f"Goal {goal_id} removed.")
+    
     
 def list_practice_sessions():
     db = Database()
@@ -38,6 +52,8 @@ def main():
     parser.add_argument('--add-goal', nargs=3)
     parser.add_argument('--list-practice', action='store_true')
     parser.add_argument('--list-goals', action='store_true')
+    parser.add_argument('--remove-practice', nargs=1)
+    parser.add_argument('--remove-goal', nargs=1)
     parser.add_argument('--generate-report-csv', action='store_true')
     parser.add_argument('--generate-report-excel', action='store_true')
     
@@ -51,6 +67,10 @@ def main():
         list_practice_sessions()
     elif args.list_goals:
         list_goals()
+    elif args.remove_practice:
+        remove_practice(args.remove_practice[0])
+    elif args.remove_goal:
+        remove_goal(args.remove_goal[0])
     elif args.generate_report_csv:
         generate_csv_report()
     elif args.generate_report_excel:
