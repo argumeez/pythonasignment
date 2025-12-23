@@ -1,9 +1,17 @@
 from app.database import Database
 import argparse
 from app.report import generate_csv_report, generate_excel_report
+from datetime import datetime
 
+
+def validate_date(date_str):
+    try:
+        datetime.strptime(date_str, "%Y-%m-%d")
+    except ValueError:
+        raise ValueError("Date must be in YYYY-MM-DD format")
 
 def add_practice_sessions(date, duration, warmup, exercises):
+    validate_date(date)
     db = Database()
     db.execute_query("INSERT INTO practice_sessions (date, duration, warmup, exercises) VALUES (?,?,?,?)",
                      (date, int(duration), int(warmup), exercises),
@@ -14,7 +22,7 @@ def add_practice_sessions(date, duration, warmup, exercises):
 def add_goal(description, target, completed):
     db = Database()
     db.execute_query("INSERT INTO goals (description, target, completed) VALUES (?,?,?)",
-                     (description, target, int(completed)),
+                     (description, target, completed),
     )
     print(f"Goal '{description}' added")
     
@@ -44,6 +52,8 @@ def list_goals():
     goals = db.fetch_all("SELECT * FROM goals")
     for goal in goals:
         print(goal)
+
+
 
 
 def main():

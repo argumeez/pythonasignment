@@ -36,12 +36,20 @@ def generate_excel_report():
     sessions = db.fetch_all("SELECT * FROM practice_sessions")
     goals = db.fetch_all("SELECT * FROM goals")
     
+    # This will check if a data folder exists
+    data_dir = os.path.dirname(settings.DATABASE_PATH)
+    os.makedirs(data_dir, exist_ok=True)
+    sessions_path = os.path.join(data_dir, "practice_reports.xlsx")
+    goals_path = os.path.join(data_dir, "goals_report.xlsx")
+    
     sessions_df = pd.DataFrame(sessions, columns=["id", "date", "duration", "warmup", "exercises"])
     goals_df = pd.DataFrame(goals, columns=["id", "description", "target", "completed"])
     
-    with pd.ExcelWriter('practice_reports.xlsx') as writer:
+    with pd.ExcelWriter(sessions_path) as writer:
         sessions_df.to_excel(writer, sheet_name="Practice Sessions", index=False)
+    
+    with pd.ExcelWriter(goals_path) as writer:
         goals_df.to_excel(writer, sheet_name="Goals", index=False)
         
         
-    print("Excel report generated.")
+    print("Excel reports generated.")

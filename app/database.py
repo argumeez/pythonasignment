@@ -30,7 +30,7 @@ class Database:
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 description TEXT NOT NULL,
                 target TEXT NOT NULL,
-                completed INTEGER NOT NULL
+                completed BOOLEAN
             )
         """)
 
