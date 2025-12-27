@@ -207,9 +207,6 @@ marimo/_lsp/
 __marimo__/
 
 
-# Local project settings (DO NOT COMMIT)
-config/settings.py
-
 # Local project settings
 config/settings.py
 
