@@ -10,6 +10,8 @@ Trumpet Practice tracker
 
 # How to use the application
 
+- You find all the code you need inside the master branch. 
+
 File structure:
 - TrumpetPracticePlanner (root folder)
   - app:
